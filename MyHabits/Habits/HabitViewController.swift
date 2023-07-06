@@ -5,17 +5,18 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
     
     private var contentView: UIView = {
-         let contentView = UIView()
-         contentView.translatesAutoresizingMaskIntoConstraints = false
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
 
-         return contentView
-     }()
+        return contentView
+    }()
+
 
     var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.text = "НАЗВАНИЕ"
-
+        nameLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return nameLabel
     }()
 
@@ -24,7 +25,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         let habitsNameTextField = UITextField()
         habitsNameTextField.translatesAutoresizingMaskIntoConstraints = false
         habitsNameTextField.placeholder = "Бегать по утрам, спать 8 часов и тд и тп"
-
+        habitsNameTextField.textColor = UIColor(named: "SystemGray2")
 
         return habitsNameTextField
     }()
@@ -34,20 +35,19 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         let colorLabel = UILabel()
         colorLabel.translatesAutoresizingMaskIntoConstraints = false
         colorLabel.text = "ЦВЕТ"
+        colorLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
 
         return colorLabel
     }()
 
 
-   lazy var colorButton: UIButton = {
+    lazy var colorButton: UIButton = {
         let colorButton = UIButton()
-        colorButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        colorButton.layer.cornerRadius = colorButton.frame.height / 2
-        colorButton.clipsToBounds = true
         colorButton.translatesAutoresizingMaskIntoConstraints = false
+        colorButton.layer.cornerRadius = 15
+        colorButton.clipsToBounds = true
         colorButton.backgroundColor = UIColor.red
         colorButton.addTarget(self, action: #selector(showColorPicker), for: .touchUpInside)
-
 
         return colorButton
     }()
@@ -56,23 +56,43 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     var timeLabel: UILabel = {
         let timeLabel = UILabel()
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-
         timeLabel.text = "ВРЕМЯ"
+        timeLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+
         return timeLabel
     }()
 
-    var timePickerView: CustomTimePickerView = {
-        let timePickerView = CustomTimePickerView()
-        timePickerView.translatesAutoresizingMaskIntoConstraints = false
 
-        timePickerView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-        let tapGesture = UITapGestureRecognizer(target: HabitViewController.self, action: #selector(openTimePicker))
-        timePickerView.timeLabel.addGestureRecognizer(tapGesture)
-        timePickerView.timeLabel.isUserInteractionEnabled = true
+    var timeLabelFirst: UILabel = {
+        let timeLabelFirst = UILabel()
+        timeLabelFirst.translatesAutoresizingMaskIntoConstraints = false
+timeLabelFirst.text = "Каждый день в "
 
-
-        return timePickerView
+        return timeLabelFirst
     }()
+
+
+    var timeLabelSecond: UILabel = {
+        let timeLabelSecond = UILabel()
+        timeLabelSecond.translatesAutoresizingMaskIntoConstraints = false
+        timeLabelSecond.textColor = UIColor(named: "Violet")
+        timeLabelSecond.text = "11:00 PM"
+
+        return timeLabelSecond
+    }()
+
+
+   lazy var timePicker: UIDatePicker = {
+        let timePicker = UIDatePicker()
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .wheels
+
+        timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
+
+        return timePicker
+    }()
+
 
     private var cancelButton: UIButton = {
         let cancelButton = UIButton()
@@ -80,7 +100,9 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         cancelButton.setTitle("Отменить", for: .normal)
         cancelButton.setTitleColor(.black, for: .normal)
         cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-//        cancelButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        cancelButton.setTitleColor(UIColor(named: "Violet"), for: .normal)
+
+        //        cancelButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 
         return cancelButton
     }()
@@ -91,11 +113,11 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.setTitleColor(.black, for: .normal)
-        saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        saveButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        saveButton.setTitleColor(UIColor(named: "Violet"), for: .normal)
 
         return saveButton
     }()
-
 
 
     override func viewDidLoad() {
@@ -133,7 +155,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         contentView.addSubview(colorLabel)
         contentView.addSubview(colorButton)
         contentView.addSubview(timeLabel)
-        contentView.addSubview(timePickerView)
+        contentView.addSubview(timeLabelFirst)
+        contentView.addSubview(timeLabelSecond)
+        contentView.addSubview(timePicker)
+
         view.addSubview(cancelButton)
         view.addSubview(saveButton)
 
@@ -165,12 +190,21 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
             colorButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 16),
             colorButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            colorButton.widthAnchor.constraint(equalToConstant: 30),
+            colorButton.heightAnchor.constraint(equalToConstant: 30),
 
             timeLabel.topAnchor.constraint(equalTo: colorButton.bottomAnchor, constant: 16),
             timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 
-            timePickerView.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 16),
-            timePickerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+            timeLabelFirst.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 16),
+            timeLabelFirst.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+
+
+            timeLabelSecond.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 16),
+            timeLabelSecond.leadingAnchor.constraint(equalTo: timeLabelFirst.trailingAnchor),
+
+            timePicker.topAnchor.constraint(equalTo: timeLabelSecond.bottomAnchor, constant: 16),
+            timePicker.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
 
         ])
     }
@@ -199,38 +233,20 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         present(colorPicker, animated: true, completion: nil)
     }
 
+
     @objc func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         let selectedColor = viewController.selectedColor
         colorButton.backgroundColor = selectedColor
         viewController.dismiss(animated: true, completion: nil)
     }
-    
-    @objc func openTimePicker() {
-        let alertController = UIAlertController(title: "Выберите время", message: nil, preferredStyle: .actionSheet)
 
-        let doneAction = UIAlertAction(title: "Готово", style: .default) { [weak self] (action) in
-            let selectedTime = self?.timePickerView.getTime()
 
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
-            let timeString = dateFormatter.string(from: selectedTime!)
-            self?.timePickerView.timeLabel.text = "Каждый день в \(timeString)"
-        }
-        alertController.addAction(doneAction)
+    @objc private func timeChanged() {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
 
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-
-        alertController.view.addSubview(timePickerView.timePicker)
-
-        present(alertController
-
-                , animated: true, completion: nil)
-    }
-
-    @objc func goBack() {
-print("ssdfsdf")
-        
+        let selectedTime = formatter.string(from: timePicker.date)
+        timeLabelSecond.text = selectedTime
     }
 
 

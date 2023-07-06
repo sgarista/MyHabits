@@ -18,7 +18,6 @@
 		3AA659EE2A5417C600277D0F /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659ED2A5417C600277D0F /* InfoViewController.swift */; };
 		3AA659F22A541FF800277D0F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659F12A541FF800277D0F /* TabBarController.swift */; };
 		3AA659F42A54204F00277D0F /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659F32A54204F00277D0F /* HabitsStore.swift */; };
-		3AF53AC42A55B21F00B42FB9 /* CustomTimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF53AC32A55B21F00B42FB9 /* CustomTimePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		3AA659ED2A5417C600277D0F /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		3AA659F12A541FF800277D0F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3AA659F32A54204F00277D0F /* HabitsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
-		3AF53AC32A55B21F00B42FB9 /* CustomTimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +50,7 @@
 		3AA552932A54947500C3CA52 /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				3AA659F32A54204F00277D0F /* HabitsStore.swift */,
 				3AA659EB2A54177A00277D0F /* HabitsViewController.swift */,
 				3AA552942A5494AE00C3CA52 /* HabitsTableViewCell.swift */,
 				3AA552962A54972C00C3CA52 /* HabitViewController.swift */,
@@ -87,8 +86,6 @@
 				3AA659DE2A54116100277D0F /* LaunchScreen.storyboard */,
 				3AA659E12A54116100277D0F /* Info.plist */,
 				3AA659ED2A5417C600277D0F /* InfoViewController.swift */,
-				3AA659F32A54204F00277D0F /* HabitsStore.swift */,
-				3AF53AC32A55B21F00B42FB9 /* CustomTimePickerView.swift */,
 			);
 			path = MyHabits;
 			sourceTree = "<group>";
@@ -167,7 +164,6 @@
 				3AA659D82A54115D00277D0F /* ViewController.swift in Sources */,
 				3AA552952A5494AE00C3CA52 /* HabitsTableViewCell.swift in Sources */,
 				3AA659D42A54115D00277D0F /* AppDelegate.swift in Sources */,
-				3AF53AC42A55B21F00B42FB9 /* CustomTimePickerView.swift in Sources */,
 				3AA659EC2A54177A00277D0F /* HabitsViewController.swift in Sources */,
 				3AA659F22A541FF800277D0F /* TabBarController.swift in Sources */,
 				3AA659EE2A5417C600277D0F /* InfoViewController.swift in Sources */,
@@ -314,7 +310,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyHabits/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -343,7 +339,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyHabits/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
