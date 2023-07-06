@@ -7,23 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AA552952A5494AE00C3CA52 /* HabitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA552942A5494AE00C3CA52 /* HabitsTableViewCell.swift */; };
+		3AA552972A54972C00C3CA52 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA552962A54972C00C3CA52 /* HabitViewController.swift */; };
 		3AA659D42A54115D00277D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659D32A54115D00277D0F /* AppDelegate.swift */; };
 		3AA659D62A54115D00277D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659D52A54115D00277D0F /* SceneDelegate.swift */; };
 		3AA659D82A54115D00277D0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659D72A54115D00277D0F /* ViewController.swift */; };
-		3AA659DB2A54115D00277D0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AA659D92A54115D00277D0F /* Main.storyboard */; };
 		3AA659DD2A54116100277D0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AA659DC2A54116100277D0F /* Assets.xcassets */; };
 		3AA659E02A54116100277D0F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AA659DE2A54116100277D0F /* LaunchScreen.storyboard */; };
+		3AA659EC2A54177A00277D0F /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659EB2A54177A00277D0F /* HabitsViewController.swift */; };
+		3AA659EE2A5417C600277D0F /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659ED2A5417C600277D0F /* InfoViewController.swift */; };
+		3AA659F22A541FF800277D0F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659F12A541FF800277D0F /* TabBarController.swift */; };
+		3AA659F42A54204F00277D0F /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659F32A54204F00277D0F /* HabitsStore.swift */; };
+		3AF53AC42A55B21F00B42FB9 /* CustomTimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF53AC32A55B21F00B42FB9 /* CustomTimePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3AA552942A5494AE00C3CA52 /* HabitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsTableViewCell.swift; sourceTree = "<group>"; };
+		3AA552962A54972C00C3CA52 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		3AA659D02A54115D00277D0F /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA659D32A54115D00277D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AA659D52A54115D00277D0F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3AA659D72A54115D00277D0F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3AA659DA2A54115D00277D0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3AA659DC2A54116100277D0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3AA659DF2A54116100277D0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AA659E12A54116100277D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AA659EB2A54177A00277D0F /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
+		3AA659ED2A5417C600277D0F /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		3AA659F12A541FF800277D0F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3AA659F32A54204F00277D0F /* HabitsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
+		3AF53AC32A55B21F00B42FB9 /* CustomTimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTimePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +49,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3AA552932A54947500C3CA52 /* Habits */ = {
+			isa = PBXGroup;
+			children = (
+				3AA659EB2A54177A00277D0F /* HabitsViewController.swift */,
+				3AA552942A5494AE00C3CA52 /* HabitsTableViewCell.swift */,
+				3AA552962A54972C00C3CA52 /* HabitViewController.swift */,
+			);
+			path = Habits;
+			sourceTree = "<group>";
+		};
 		3AA659C72A54115D00277D0F = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +78,17 @@
 		3AA659D22A54115D00277D0F /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
+				3AA552932A54947500C3CA52 /* Habits */,
+				3AA659F12A541FF800277D0F /* TabBarController.swift */,
 				3AA659D32A54115D00277D0F /* AppDelegate.swift */,
 				3AA659D52A54115D00277D0F /* SceneDelegate.swift */,
 				3AA659D72A54115D00277D0F /* ViewController.swift */,
-				3AA659D92A54115D00277D0F /* Main.storyboard */,
 				3AA659DC2A54116100277D0F /* Assets.xcassets */,
 				3AA659DE2A54116100277D0F /* LaunchScreen.storyboard */,
 				3AA659E12A54116100277D0F /* Info.plist */,
+				3AA659ED2A5417C600277D0F /* InfoViewController.swift */,
+				3AA659F32A54204F00277D0F /* HabitsStore.swift */,
+				3AF53AC32A55B21F00B42FB9 /* CustomTimePickerView.swift */,
 			);
 			path = MyHabits;
 			sourceTree = "<group>";
@@ -127,7 +153,6 @@
 			files = (
 				3AA659E02A54116100277D0F /* LaunchScreen.storyboard in Resources */,
 				3AA659DD2A54116100277D0F /* Assets.xcassets in Resources */,
-				3AA659DB2A54115D00277D0F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +163,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA659F42A54204F00277D0F /* HabitsStore.swift in Sources */,
 				3AA659D82A54115D00277D0F /* ViewController.swift in Sources */,
+				3AA552952A5494AE00C3CA52 /* HabitsTableViewCell.swift in Sources */,
 				3AA659D42A54115D00277D0F /* AppDelegate.swift in Sources */,
+				3AF53AC42A55B21F00B42FB9 /* CustomTimePickerView.swift in Sources */,
+				3AA659EC2A54177A00277D0F /* HabitsViewController.swift in Sources */,
+				3AA659F22A541FF800277D0F /* TabBarController.swift in Sources */,
+				3AA659EE2A5417C600277D0F /* InfoViewController.swift in Sources */,
+				3AA552972A54972C00C3CA52 /* HabitViewController.swift in Sources */,
 				3AA659D62A54115D00277D0F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +179,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3AA659D92A54115D00277D0F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3AA659DA2A54115D00277D0F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3AA659DE2A54116100277D0F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -291,9 +315,8 @@
 				INFOPLIST_FILE = MyHabits/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,6 +324,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.exercise.first.MyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -318,9 +344,8 @@
 				INFOPLIST_FILE = MyHabits/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 14;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -328,6 +353,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.exercise.first.MyHabits;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
