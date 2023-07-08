@@ -22,10 +22,11 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
 
     var habitsNameTextField: UITextField = {
-        let habitsNameTextField = UITextField()
+        var habitsNameTextField = UITextField()
         habitsNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        //        habitsNameTextField.text = "Завести полезную привычку"
         habitsNameTextField.placeholder = "Бегать по утрам, спать 8 часов и тд и тп"
-        habitsNameTextField.textColor = UIColor(named: "SystemGray2")
+        habitsNameTextField.textColor = Colors.systemgray2.color
 
         return habitsNameTextField
     }()
@@ -66,7 +67,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     var timeLabelFirst: UILabel = {
         let timeLabelFirst = UILabel()
         timeLabelFirst.translatesAutoresizingMaskIntoConstraints = false
-timeLabelFirst.text = "Каждый день в "
+        timeLabelFirst.text = "Каждый день в "
 
         return timeLabelFirst
     }()
@@ -75,20 +76,22 @@ timeLabelFirst.text = "Каждый день в "
     var timeLabelSecond: UILabel = {
         let timeLabelSecond = UILabel()
         timeLabelSecond.translatesAutoresizingMaskIntoConstraints = false
-        timeLabelSecond.textColor = UIColor(named: "Violet")
+        timeLabelSecond.textColor = Colors.violet.color
         timeLabelSecond.text = "11:00 PM"
 
         return timeLabelSecond
     }()
 
+    var selectedDate: Date?
 
-   lazy var timePicker: UIDatePicker = {
+    lazy var timePicker: UIDatePicker = {
         let timePicker = UIDatePicker()
         timePicker.translatesAutoresizingMaskIntoConstraints = false
         timePicker.datePickerMode = .time
+//        timePicker.locale = Locale(identifier: "en_US_POSIX")
         timePicker.preferredDatePickerStyle = .wheels
 
-        timePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
+        timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
 
         return timePicker
     }()
@@ -100,7 +103,7 @@ timeLabelFirst.text = "Каждый день в "
         cancelButton.setTitle("Отменить", for: .normal)
         cancelButton.setTitleColor(.black, for: .normal)
         cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        cancelButton.setTitleColor(UIColor(named: "Violet"), for: .normal)
+        cancelButton.setTitleColor(Colors.violet.color, for: .normal)
 
         //        cancelButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 
@@ -114,7 +117,7 @@ timeLabelFirst.text = "Каждый день в "
         saveButton.setTitle("Сохранить", for: .normal)
         saveButton.setTitleColor(.black, for: .normal)
         saveButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        saveButton.setTitleColor(UIColor(named: "Violet"), for: .normal)
+        saveButton.setTitleColor(Colors.violet.color, for: .normal)
 
         return saveButton
     }()
@@ -214,6 +217,7 @@ timeLabelFirst.text = "Каждый день в "
 
     @objc func cancelButtonTapped() {
 
+        dismiss(animated: true, completion: nil)
 
         print("cancel button tapped")
 
@@ -221,9 +225,27 @@ timeLabelFirst.text = "Каждый день в "
 
     @objc func saveButtonTapped() {
 
+        var tempName = ""
+        if let text = habitsNameTextField.text {
+            if text.count > 0 {
+                tempName = text
+            } else {
+                tempName = "Завести полезную привычку"
+            }
+        }
 
+
+
+        let newHabit = Habit(name: tempName,
+                             date: selectedDate ?? Date(),
+                             color: colorButton.backgroundColor ?? .systemRed)
+        let store = HabitsStore.shared
+        store.habits.append(newHabit)
+        print(newHabit.name, newHabit.date, newHabit.color)
+//                store.habits.removeAll()
+        print(store.habits)
         print("save button tapped")
-
+        dismiss(animated: true, completion: nil)
     }
 
 
@@ -241,13 +263,31 @@ timeLabelFirst.text = "Каждый день в "
     }
 
 
-    @objc private func timeChanged() {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
 
-        let selectedTime = formatter.string(from: timePicker.date)
-        timeLabelSecond.text = selectedTime
+    @objc func datePickerValueChanged(sender: UIDatePicker) {
+        selectedDate = sender.date
+
+        // Форматируем выбранное время для отображения в UILabel
+        let dateFormatter = DateFormatter()
+//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+03:00")
+
+        dateFormatter.dateFormat = "HH:mm"
+        let formattedTime = dateFormatter.string(from: selectedDate!)
+
+        // Передаем отформатированное время в UILabel
+        timeLabelSecond.text = formattedTime
+
+        // Вызываем метод для передачи времени в другое место
     }
+
+    //    @objc private func timeChanged() {
+    //        let formatter = DateFormatter()
+    //        formatter.timeStyle = .short
+    //
+    //        let selectedTime = formatter.string(from: timePicker.date)
+    //        print(type(of: selectedTime))
+    //        timeLabelSecond.text = selectedTime
+    //    }
 
 
 }

@@ -3,6 +3,20 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
+
+   var collectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = Colors.lightgray.color
+
+
+
+        return collectionView
+    }()
+
+
+
     private var addButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -20,9 +34,45 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
 
         setupAddButton()
-        view.backgroundColor = .cyan
+        setupView()
+        setupConstraints()
+        setupCV()
+
     }
 
+
+    func setupView() {
+        view.backgroundColor = Colors.lightgray.color
+        view.addSubview(collectionView)
+    }
+
+    func setupCV() {
+
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
+        collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: ProgressCollectionViewCell.id)
+
+
+        collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: HabitCollectionViewCell.id)
+
+
+    }
+
+    func setupConstraints() {
+
+        let safeAreaLayoutGuide = view.safeAreaLayoutGuide
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+
+        ])
+
+
+    }
 
     func setupAddButton() {
         let addButtonItem = UIBarButtonItem(customView: addButton)
@@ -37,7 +87,74 @@ class HabitsViewController: UIViewController {
         present(habitNC, animated: true)
 
         print("Button tapped")
+        
+    }
 
+}
+
+extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+
+        2
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+        if section == 0 {
+            return 1
+        } else {
+            return HabitsStore.shared.habits.count
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        switch indexPath.section {
+        case 0:
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
+
+                    return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitCollectionViewCell.id, for: indexPath) as! HabitCollectionViewCell
+            let habit = HabitsStore.shared.habits[indexPath.row]
+            cell.setup(with: habit)
+            return cell
+        default:
+           return UICollectionViewCell()
+        }
+
+
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
+//
+//        return cell
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        switch indexPath.section {
+        case 0:
+            let width = collectionView.frame.width - 32
+            return CGSize(width: width, height: 60)
+        case 1:
+            let width = collectionView.frame.width - 32
+            return CGSize(width: width, height: 130)
+        default:
+            return CGSize(width: 0, height: 0)
+
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 22
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        return UIEdgeInsets(top: 0, left: 8, bottom: 22, right: 8)
     }
 
 }

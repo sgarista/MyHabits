@@ -7,7 +7,7 @@ class InfoViewController: UIViewController {
     var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
+        scrollView.backgroundColor = .white
         return scrollView
     }()
 
@@ -42,7 +42,7 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = Colors.lightgray.color
 
         setupUI()
         setupConstraints()
