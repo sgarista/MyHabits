@@ -4,16 +4,23 @@ import UIKit
 class HabitsViewController: UIViewController {
 
 
-   var collectionView: UICollectionView = {
+
+ static var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = Colors.lightgray.color
 
-
-
         return collectionView
     }()
+
+
+//    var progress = HabitsStore.shared {
+//        didSet {
+//            collectionView.reloadData()
+//        }
+//    }
+
 
 
 
@@ -43,18 +50,18 @@ class HabitsViewController: UIViewController {
 
     func setupView() {
         view.backgroundColor = Colors.lightgray.color
-        view.addSubview(collectionView)
+        view.addSubview(HabitsViewController.collectionView)
     }
 
     func setupCV() {
 
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        HabitsViewController.collectionView.dataSource = self
+        HabitsViewController.collectionView.delegate = self
 
-        collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: ProgressCollectionViewCell.id)
+        HabitsViewController.collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: ProgressCollectionViewCell.id)
 
 
-        collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: HabitCollectionViewCell.id)
+        HabitsViewController.collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: HabitCollectionViewCell.id)
 
 
     }
@@ -64,10 +71,10 @@ class HabitsViewController: UIViewController {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            HabitsViewController.collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            HabitsViewController.collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            HabitsViewController.collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            HabitsViewController.collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
 
         ])
 
@@ -115,21 +122,18 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         case 0:
                     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
 
+            cell.setup()
                     return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitCollectionViewCell.id, for: indexPath) as! HabitCollectionViewCell
             let habit = HabitsStore.shared.habits[indexPath.row]
             cell.setup(with: habit)
+
             return cell
         default:
            return UICollectionViewCell()
         }
 
-
-
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
-//
-//        return cell
 
     }
 
@@ -156,5 +160,6 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
         return UIEdgeInsets(top: 0, left: 8, bottom: 22, right: 8)
     }
+
 
 }

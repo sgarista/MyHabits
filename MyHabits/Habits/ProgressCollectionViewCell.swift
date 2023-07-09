@@ -10,7 +10,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     var supportLabel: UILabel = {
         let supportLabel = UILabel()
         supportLabel.translatesAutoresizingMaskIntoConstraints = false
-        supportLabel.text = "Все получится!"
+//        supportLabel.text = "Все получится!"
 
 
         return supportLabel
@@ -19,24 +19,20 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     var progressLabel: UILabel = {
         let progressLabel = UILabel()
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
-        progressLabel.text = "50%"
+//        progressLabel.text = "50%"
 
 
         return progressLabel
     }()
 
 
-
-
-
-
-
     lazy var progressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.progressTintColor = .blue
-        progressView.trackTintColor = .red
-        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        progressView.progressTintColor = Colors.violet.color
+        progressView.trackTintColor = Colors.systemgray2.color
+//        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+
 
         return progressView
     }()
@@ -84,9 +80,18 @@ class ProgressCollectionViewCell: UICollectionViewCell {
             progressView.topAnchor.constraint(equalTo: supportLabel.bottomAnchor, constant: 8),
             progressView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             progressView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            progressView.heightAnchor.constraint(equalToConstant: 10)
+            progressView.heightAnchor.constraint(equalToConstant: 7)
 
         ])
+
+    }
+
+
+    func setup() {
+
+        supportLabel.text = "Все получится!"
+        progressLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"
+        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
 
     }
 }

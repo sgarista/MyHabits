@@ -26,7 +26,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         habitsNameTextField.translatesAutoresizingMaskIntoConstraints = false
         //        habitsNameTextField.text = "Завести полезную привычку"
         habitsNameTextField.placeholder = "Бегать по утрам, спать 8 часов и тд и тп"
-        habitsNameTextField.textColor = Colors.systemgray2.color
+        habitsNameTextField.autocorrectionType = .no
+        habitsNameTextField.textColor = .black
+        habitsNameTextField.clearButtonMode = .whileEditing
+//        habitsNameTextField.textColor = Colors.systemgray2.color
 
         return habitsNameTextField
     }()
@@ -240,12 +243,17 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
                              date: selectedDate ?? Date(),
                              color: colorButton.backgroundColor ?? .systemRed)
         let store = HabitsStore.shared
-        store.habits.append(newHabit)
+        store.habits.insert(newHabit, at: 0)
+        
         print(newHabit.name, newHabit.date, newHabit.color)
 //                store.habits.removeAll()
         print(store.habits)
         print("save button tapped")
         dismiss(animated: true, completion: nil)
+        HabitsViewController.collectionView.reloadData()
+
+        HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
+        HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
     }
 
 
