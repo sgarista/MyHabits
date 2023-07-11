@@ -4,7 +4,7 @@ class TabBarController: UITabBarController {
 
     var habitsTabNavigationController: UINavigationController!
     var infoTabNavigationController: UINavigationController!
-    var habitTabNavigationController: UINavigationController!
+//    var habitTabNavigationController: UINavigationController!
 
 
     override func viewDidLoad() {
@@ -25,10 +25,5 @@ class TabBarController: UITabBarController {
         infoTabNavigationController.tabBarItem = UITabBarItem(title: "Информация", image: UIImage(systemName:"info.circle.fill"), tag: 1)
 
 
-
-
-//                UINavigationBar.appearance().backgroundColor = .white
-        UITabBar.appearance().backgroundColor = .white
     }
 }
-

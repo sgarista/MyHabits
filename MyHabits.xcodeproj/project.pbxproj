@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3A05C5752A59369C00860E0D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A05C5742A59369C00860E0D /* Colors.swift */; };
+		3A72E1052A5BF91E009DD00E /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A72E1042A5BF91E009DD00E /* HabitDetailsViewController.swift */; };
+		3A72E1072A5BFC22009DD00E /* HabitDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A72E1062A5BFC22009DD00E /* HabitDetailsTableViewCell.swift */; };
 		3AA552972A54972C00C3CA52 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA552962A54972C00C3CA52 /* HabitViewController.swift */; };
 		3AA659D42A54115D00277D0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659D32A54115D00277D0F /* AppDelegate.swift */; };
 		3AA659D62A54115D00277D0F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA659D52A54115D00277D0F /* SceneDelegate.swift */; };
@@ -24,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		3A05C5742A59369C00860E0D /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		3A72E1042A5BF91E009DD00E /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
+		3A72E1062A5BFC22009DD00E /* HabitDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		3AA552962A54972C00C3CA52 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
 		3AA659D02A54115D00277D0F /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AA659D32A54115D00277D0F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 				3AA659DE2A54116100277D0F /* LaunchScreen.storyboard */,
 				3AA659E12A54116100277D0F /* Info.plist */,
 				3AA659ED2A5417C600277D0F /* InfoViewController.swift */,
+				3A72E1042A5BF91E009DD00E /* HabitDetailsViewController.swift */,
+				3A72E1062A5BFC22009DD00E /* HabitDetailsTableViewCell.swift */,
 			);
 			path = MyHabits;
 			sourceTree = "<group>";
@@ -178,9 +184,11 @@
 				3A05C5752A59369C00860E0D /* Colors.swift in Sources */,
 				3AA659D82A54115D00277D0F /* ViewController.swift in Sources */,
 				3AA659D42A54115D00277D0F /* AppDelegate.swift in Sources */,
+				3A72E1052A5BF91E009DD00E /* HabitDetailsViewController.swift in Sources */,
 				3AF8A7B52A59899C0044DF10 /* HabitCollectionViewCell.swift in Sources */,
 				3AA659EC2A54177A00277D0F /* HabitsViewController.swift in Sources */,
 				3AA659F22A541FF800277D0F /* TabBarController.swift in Sources */,
+				3A72E1072A5BFC22009DD00E /* HabitDetailsTableViewCell.swift in Sources */,
 				3ABC51402A5835AF0075DDF4 /* ProgressCollectionViewCell.swift in Sources */,
 				3AA659EE2A5417C600277D0F /* InfoViewController.swift in Sources */,
 				3AA552972A54972C00C3CA52 /* HabitViewController.swift in Sources */,

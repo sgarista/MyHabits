@@ -70,7 +70,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 
             supportLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             supportLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-            supportLabel.trailingAnchor.constraint(equalTo: progressLabel.leadingAnchor, constant: -8),
+//            supportLabel.trailingAnchor.constraint(equalTo: progressLabel.leadingAnchor, constant: -8),
 
             // Progress Label constraints
             progressLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -91,7 +91,11 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 
         supportLabel.text = "Все получится!"
         progressLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"
-        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+//        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        UIView.animate(withDuration: 2, delay: 0.5, options: .curveEaseInOut, animations: {
+            self.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        }, completion: nil)
+
 
     }
 }

@@ -3,7 +3,12 @@ import UIKit
 
 class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate {
 
-    
+    var editHabit: Habit?
+
+    var isEdit = false
+
+
+
     private var contentView: UIView = {
         let contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +34,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         habitsNameTextField.autocorrectionType = .no
         habitsNameTextField.textColor = .black
         habitsNameTextField.clearButtonMode = .whileEditing
-//        habitsNameTextField.textColor = Colors.systemgray2.color
+        //        habitsNameTextField.textColor = Colors.systemgray2.color
 
         return habitsNameTextField
     }()
@@ -91,7 +96,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         let timePicker = UIDatePicker()
         timePicker.translatesAutoresizingMaskIntoConstraints = false
         timePicker.datePickerMode = .time
-//        timePicker.locale = Locale(identifier: "en_US_POSIX")
+        //        timePicker.locale = Locale(identifier: "en_US_POSIX")
         timePicker.preferredDatePickerStyle = .wheels
 
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
@@ -126,6 +131,23 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }()
 
 
+    lazy var deleteButton: UIButton = {
+        let deleteButton = UIButton()
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.setTitle("Удалить привычку", for: .normal)
+        deleteButton.setTitleColor(.red, for: .normal)
+        //        deleteButton.layer.cornerRadius = 15
+        //        deleteButton.clipsToBounds = true
+        //        deleteButton.backgroundColor = UIColor.red
+        deleteButton.addTarget(self, action: #selector(deleteButtonPressed), for: .touchUpInside)
+
+        return deleteButton
+    }()
+
+
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -133,8 +155,9 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         setupConstraints()
         setupCancelButton()
         setupSaveButton()
+        setupDeleteButton()
 
-        title = "Страница"
+        //        title = "Страница"
 
     }
 
@@ -164,6 +187,9 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         contentView.addSubview(timeLabelFirst)
         contentView.addSubview(timeLabelSecond)
         contentView.addSubview(timePicker)
+        //        contentView.addSubview(deleteButton)
+        //
+
 
         view.addSubview(cancelButton)
         view.addSubview(saveButton)
@@ -210,50 +236,107 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             timeLabelSecond.leadingAnchor.constraint(equalTo: timeLabelFirst.trailingAnchor),
 
             timePicker.topAnchor.constraint(equalTo: timeLabelSecond.bottomAnchor, constant: 16),
-            timePicker.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            timePicker.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+
+            //            deleteButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            //            deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            //            deleteButton.heightAnchor.constraint(equalToConstant: 22)
 
         ])
     }
 
 
+    func setupDeleteButton() {
 
+        if isEdit {
+            contentView.addSubview(deleteButton)
+
+            NSLayoutConstraint.activate([
+                deleteButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+                deleteButton.heightAnchor.constraint(equalToConstant: 22)
+            ])
+            deleteButton.addTarget(self, action: #selector(deleteButtonPressed), for: .touchUpInside)
+        } else {
+            deleteButton.removeFromSuperview()
+            NSLayoutConstraint.deactivate([
+                deleteButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                deleteButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+                deleteButton.heightAnchor.constraint(equalToConstant: 22)
+            ])
+        }
+    }
 
     @objc func cancelButtonTapped() {
 
         dismiss(animated: true, completion: nil)
-
         print("cancel button tapped")
 
     }
 
     @objc func saveButtonTapped() {
 
-        var tempName = ""
-        if let text = habitsNameTextField.text {
-            if text.count > 0 {
-                tempName = text
-            } else {
-                tempName = "Завести полезную привычку"
+        if let habit = editHabit {
+
+            var tempName = ""
+            if let text = habitsNameTextField.text {
+                if text.count > 0 {
+                    tempName = text
+                } else {
+                    tempName = "Завести полезную привычку"
+                }
             }
+
+            habit.name = tempName
+            habit.date = selectedDate ?? Date()
+            habit.color = colorButton.backgroundColor ?? .systemRed
+            //            HabitDetailsViewController().habit = habit
+            HabitsStore.shared.save()
+            //            HabitDetailsViewController().tableView.reloadData()
+
+
+                        let habitDetailVC = HabitDetailsViewController()
+//            habitDetailVC.habit = habit
+//            habitDetailVC.tempTitle = habit.name
+
+            print("edit button tapped")
+            dismiss(animated: true, completion: nil)
+            HabitsViewController.collectionView.reloadData()
+            HabitDetailsViewController().tableView.reloadData()
+
+            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
+            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
+
+        } else {
+
+            var tempName = ""
+            if let text = habitsNameTextField.text {
+                if text.count > 0 {
+                    tempName = text
+                } else {
+                    tempName = "Завести полезную привычку"
+                }
+            }
+
+
+
+            let newHabit = Habit(name: tempName,
+                                 date: selectedDate ?? Date(),
+                                 color: colorButton.backgroundColor ?? .systemRed)
+            let store = HabitsStore.shared
+            store.habits.insert(newHabit, at: 0)
+
+            print(newHabit.name, newHabit.date, newHabit.color)
+            //                store.habits.removeAll()
+            print(store.habits)
+            print("save button tapped")
+            dismiss(animated: true, completion: nil)
+            HabitsViewController.collectionView.reloadData()
+
+            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
+            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
+
         }
-
-
-
-        let newHabit = Habit(name: tempName,
-                             date: selectedDate ?? Date(),
-                             color: colorButton.backgroundColor ?? .systemRed)
-        let store = HabitsStore.shared
-        store.habits.insert(newHabit, at: 0)
-        
-        print(newHabit.name, newHabit.date, newHabit.color)
-//                store.habits.removeAll()
-        print(store.habits)
-        print("save button tapped")
-        dismiss(animated: true, completion: nil)
-        HabitsViewController.collectionView.reloadData()
-
-        HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
-        HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
     }
 
 
@@ -273,29 +356,70 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
 
     @objc func datePickerValueChanged(sender: UIDatePicker) {
+
         selectedDate = sender.date
-
-        // Форматируем выбранное время для отображения в UILabel
         let dateFormatter = DateFormatter()
-//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+03:00")
-
         dateFormatter.dateFormat = "HH:mm"
         let formattedTime = dateFormatter.string(from: selectedDate!)
-
-        // Передаем отформатированное время в UILabel
         timeLabelSecond.text = formattedTime
-
-        // Вызываем метод для передачи времени в другое место
     }
 
-    //    @objc private func timeChanged() {
-    //        let formatter = DateFormatter()
-    //        formatter.timeStyle = .short
-    //
-    //        let selectedTime = formatter.string(from: timePicker.date)
-    //        print(type(of: selectedTime))
-    //        timeLabelSecond.text = selectedTime
-    //    }
+
+    @objc func deleteButtonPressed() {
+
+        if let habit = editHabit {
+
+            let alert = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit.name)?", preferredStyle: .alert)
+
+            let deleteAlert = UIAlertAction(title: "Удалить", style: .default) { _ in
+                self.deleteHabit(with: habit)
+                //                self.dismiss(animated: true, completion: nil)
+
+                let habitsViewController = HabitsViewController()
+                
+                habitsViewController.modalPresentationStyle = .fullScreen
+
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil
+                                                                                 //                       self.present(habitsViewController, animated: true, completion: nil)
+                )
+
+
+
+                //                guard let habitsViewController = self.presentingViewController?.presentingViewController as? HabitsViewController else {
+                //                       return
+                //                   }
+                //
+                //                   self.presentingViewController?.dismiss(animated: true, completion: {
+                //                       habitsViewController.modalPresentationStyle = .fullScreen
+                //                       self.present(habitsViewController, animated: true, completion: nil)
+                //                   })
+
+            }
+
+            alert.addAction(deleteAlert)
+
+            let cancelAlert = UIAlertAction(title: "Отмена", style: .cancel) { _ in
+                print("Отменили")
+
+            }
+
+            alert.addAction(cancelAlert)
+
+            present(alert, animated: true, completion: nil)
+            print("нажал кнопку удалить")
+
+        }
+    }
+
+    func deleteHabit(with habit: Habit) {
+        if let index = HabitsStore.shared.habits.firstIndex(where: { $0.name == habit.name && $0.date == habit.date }) {
+            HabitsStore.shared.habits.remove(at: index)
+
+            HabitsViewController.collectionView.reloadData()
+
+        }
+    }
+
 
 
 }

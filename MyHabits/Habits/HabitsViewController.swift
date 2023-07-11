@@ -3,25 +3,16 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
+  static var tempHabit: Habit?
 
-
- static var collectionView: UICollectionView = {
+    static var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
-       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = Colors.lightgray.color
 
         return collectionView
     }()
-
-
-//    var progress = HabitsStore.shared {
-//        didSet {
-//            collectionView.reloadData()
-//        }
-//    }
-
-
 
 
     private var addButton: UIButton = {
@@ -34,7 +25,6 @@ class HabitsViewController: UIViewController {
 
         return button
     }()
-
 
 
     override func viewDidLoad() {
@@ -51,6 +41,13 @@ class HabitsViewController: UIViewController {
     func setupView() {
         view.backgroundColor = Colors.lightgray.color
         view.addSubview(HabitsViewController.collectionView)
+
+        navigationItem.title = "Сегодня"
+        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.largeTitleDisplayMode = .always
+//        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
+
+
     }
 
     func setupCV() {
@@ -71,7 +68,7 @@ class HabitsViewController: UIViewController {
         let safeAreaLayoutGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            HabitsViewController.collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            HabitsViewController.collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 22),
             HabitsViewController.collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             HabitsViewController.collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             HabitsViewController.collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
@@ -89,7 +86,9 @@ class HabitsViewController: UIViewController {
 
     @objc func addButtonTapped() {
 
-        let habitNC = UINavigationController(rootViewController: HabitViewController())
+        let habitVC = HabitViewController()
+        habitVC.title = "Создать"
+        let habitNC = UINavigationController(rootViewController: habitVC)
         habitNC.modalPresentationStyle = .fullScreen
         present(habitNC, animated: true)
 
@@ -120,22 +119,73 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
         switch indexPath.section {
         case 0:
-                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
 
             cell.setup()
-                    return cell
+            return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitCollectionViewCell.id, for: indexPath) as! HabitCollectionViewCell
             let habit = HabitsStore.shared.habits[indexPath.row]
             cell.setup(with: habit)
+            HabitsViewController.tempHabit = habit
+//            HabitsViewController.tempHabit = habit
 
+//            let tableViewController = HabitDetailsViewController()
+//            tableViewController.title = habit.name // Установите значение заголовка
+
+
+            cell.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTap(_:)))
+            cell.addGestureRecognizer(tapGesture)
+
+
+//            HabitsViewController.tempHabit = habit
             return cell
         default:
-           return UICollectionViewCell()
+            return UICollectionViewCell()
         }
-
-
     }
+
+
+    @objc func cellTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        guard let cell = gestureRecognizer.view as? UICollectionViewCell else { return }
+        guard let selectedIndexPath = HabitsViewController.collectionView.indexPath(for: cell) else { return }
+        let habit = HabitsStore.shared.habits[selectedIndexPath.row]
+
+        let habitDetailsViewController = HabitDetailsViewController()
+//        habitDetailsViewController.title = habit.name // Установите значение заголовка
+        habitDetailsViewController.habit = habit
+//        habitDetailsViewController.tempTitle = habit.name
+
+        let habitDetailsNC = UINavigationController(rootViewController: habitDetailsViewController)
+        habitDetailsNC.modalPresentationStyle = .fullScreen
+        present(habitDetailsNC, animated: true)
+
+        print("cell tapped")
+    }
+
+
+
+//    @objc func cellTap() {
+//
+//        let habitDetailNC = UINavigationController(rootViewController: HabitDetailsViewController())
+////        habitDetailNC.title = HabitsViewController.tempHabit?.name
+//        habitDetailNC.modalPresentationStyle = .fullScreen
+//        present(habitDetailNC, animated: true)
+//
+//        print("date cell tapped")
+//    }
+
+
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let selectedTitle = HabitsStore.shared.habits[indexPath.row].name // Заголовок выбранной ячейки UICollectionView
+//
+//        let tableViewController = HabitDetailsViewController()
+//        tableViewController.title = selectedTitle // Установите значение заголовка
+//        navigationController?.pushViewController(tableViewController, animated: true)
+//    }
+
+
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 

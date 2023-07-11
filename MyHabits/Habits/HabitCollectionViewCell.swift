@@ -9,7 +9,10 @@ class HabitCollectionViewCell: UICollectionViewCell {
     var habitLabel: UILabel = {
         let habitLabel = UILabel()
         habitLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        habitLabel.numberOfLines = 2
+        habitLabel.lineBreakMode = .byTruncatingTail
+        habitLabel.textAlignment = .left
+
         
         return habitLabel
     }()
@@ -87,6 +90,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
             habitLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             habitLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             habitLabel.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -16),
+            habitLabel.widthAnchor.constraint(equalToConstant: 220),
             
             // Progress Label constraints
             timeLabel.leadingAnchor.constraint(equalTo: habitLabel.leadingAnchor),
