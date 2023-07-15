@@ -3,8 +3,10 @@ import UIKit
 
 class HabitDetailsViewController: UIViewController {
 
+
     var habit: Habit?
 
+//    var updateTitleClosure: ((String) -> Void)?
 //    var tempTitle: String!
 
     var tableView: UITableView = {
@@ -18,9 +20,9 @@ class HabitDetailsViewController: UIViewController {
     private var backButton: UIButton = {
         let backButton = UIButton()
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setTitle("Отменить", for: .normal)
+        backButton.setTitle("❮ Сегодня", for: .normal)
         backButton.setTitleColor(.black, for: .normal)
-        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        backButton.titleLabel?.font = Fonts.body.type
         backButton.setTitleColor(Colors.violet.color, for: .normal)
 
         //        cancelButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
@@ -34,7 +36,7 @@ class HabitDetailsViewController: UIViewController {
         editButton.translatesAutoresizingMaskIntoConstraints = false
         editButton.setTitle("Править", for: .normal)
         editButton.setTitleColor(.black, for: .normal)
-        editButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        editButton.titleLabel?.font = Fonts.body.type
         editButton.setTitleColor(Colors.violet.color, for: .normal)
 
         return editButton
@@ -51,7 +53,9 @@ class HabitDetailsViewController: UIViewController {
         setupBackButton()
         setupEditButton()
 
-
+//        if let tempHabit = habit {
+//            title = tempHabit.name
+//        }
     }
 
     func setupView() {
@@ -60,6 +64,7 @@ class HabitDetailsViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(editButton)
         view.backgroundColor = .white
+//        title = ""
     }
 
     func setupConstraints() {
@@ -94,6 +99,8 @@ class HabitDetailsViewController: UIViewController {
     }
 
 
+
+
     @objc func backButtonTapped() {
 
         dismiss(animated: true, completion: nil)
@@ -114,6 +121,7 @@ class HabitDetailsViewController: UIViewController {
         if let tempHabit = habit {
             habitVC.isEdit = true
             habitVC.habitsNameTextField.text = tempHabit.name
+            habitVC.habitsNameTextField.textColor = Colors.blue.color
             habitVC.colorButton.backgroundColor = tempHabit.color
             habitVC.selectedDate = tempHabit.date
             let selectedDate = tempHabit.date
@@ -149,7 +157,7 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
         cell.configure(with: (date))
         
         if let tempHabit = habit {
-        title = tempHabit.name
+//            title = tempHabit.name
             if HabitsStore.shared.habit(tempHabit, isTrackedIn: date) {
                 cell.doneImageView.image = UIImage(named: "doneSymbol")
             }
@@ -165,7 +173,7 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
 
         let label = UILabel(frame: CGRect(x: 16, y: 22, width: tableView.frame.width - 32, height: 20))
         label.textColor = UIColor(named: "#3C3C43")
-        label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        label.font = Fonts.body.type
         label.text = "АКТИВНОСТЬ"
 
         headerView.addSubview(label)

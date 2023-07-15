@@ -40,7 +40,9 @@ class HabitDetailsTableViewCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
 
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+
+
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             dateLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 22),
 

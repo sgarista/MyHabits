@@ -33,6 +33,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         habitsNameTextField.placeholder = "Бегать по утрам, спать 8 часов и тд и тп"
         habitsNameTextField.autocorrectionType = .no
         habitsNameTextField.textColor = .black
+        habitsNameTextField.font = Fonts.headline.type
         habitsNameTextField.clearButtonMode = .whileEditing
         //        habitsNameTextField.textColor = Colors.systemgray2.color
 
@@ -55,7 +56,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         colorButton.translatesAutoresizingMaskIntoConstraints = false
         colorButton.layer.cornerRadius = 15
         colorButton.clipsToBounds = true
-        colorButton.backgroundColor = UIColor.red
+        colorButton.backgroundColor = UIColor.blue
         colorButton.addTarget(self, action: #selector(showColorPicker), for: .touchUpInside)
 
         return colorButton
@@ -85,7 +86,13 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         let timeLabelSecond = UILabel()
         timeLabelSecond.translatesAutoresizingMaskIntoConstraints = false
         timeLabelSecond.textColor = Colors.violet.color
-        timeLabelSecond.text = "11:00 PM"
+
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let currentTime = dateFormatter.string(from: Date())
+            timeLabelSecond.text = currentTime
+
+//        timeLabelSecond.text = "11:00"
 
         return timeLabelSecond
     }()
@@ -96,8 +103,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         let timePicker = UIDatePicker()
         timePicker.translatesAutoresizingMaskIntoConstraints = false
         timePicker.datePickerMode = .time
-        //        timePicker.locale = Locale(identifier: "en_US_POSIX")
         timePicker.preferredDatePickerStyle = .wheels
+
+        timePicker.locale = Locale(identifier: "ru_RU")
+
 
         timePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
 
@@ -292,10 +301,14 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             habit.color = colorButton.backgroundColor ?? .systemRed
             //            HabitDetailsViewController().habit = habit
             HabitsStore.shared.save()
+
             //            HabitDetailsViewController().tableView.reloadData()
+            let habitDetailsViewController = HabitDetailsViewController()
+            habitDetailsViewController.habit = habit
+//            let tableViewTitle = habit.name
+//            habitDetailsViewController.updateTitle(with: habit.name)
 
-
-                        let habitDetailVC = HabitDetailsViewController()
+//                        let habitDetailVC = HabitDetailsViewController()
 //            habitDetailVC.habit = habit
 //            habitDetailVC.tempTitle = habit.name
 
@@ -304,8 +317,8 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             HabitsViewController.collectionView.reloadData()
             HabitDetailsViewController().tableView.reloadData()
 
-            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
-            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
+//            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
+//            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
 
         } else {
 
@@ -322,7 +335,7 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
             let newHabit = Habit(name: tempName,
                                  date: selectedDate ?? Date(),
-                                 color: colorButton.backgroundColor ?? .systemRed)
+                                 color: colorButton.backgroundColor ?? .blue)
             let store = HabitsStore.shared
             store.habits.insert(newHabit, at: 0)
 
@@ -371,29 +384,16 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
             let alert = UIAlertController(title: "Удалить привычку", message: "Вы хотите удалить привычку \(habit.name)?", preferredStyle: .alert)
 
-            let deleteAlert = UIAlertAction(title: "Удалить", style: .default) { _ in
+            let deleteAlert = UIAlertAction(title: "Удалить", style: .destructive) { _ in
                 self.deleteHabit(with: habit)
-                //                self.dismiss(animated: true, completion: nil)
+
 
                 let habitsViewController = HabitsViewController()
                 
                 habitsViewController.modalPresentationStyle = .fullScreen
 
-                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil
-                                                                                 //                       self.present(habitsViewController, animated: true, completion: nil)
-                )
 
-
-
-                //                guard let habitsViewController = self.presentingViewController?.presentingViewController as? HabitsViewController else {
-                //                       return
-                //                   }
-                //
-                //                   self.presentingViewController?.dismiss(animated: true, completion: {
-                //                       habitsViewController.modalPresentationStyle = .fullScreen
-                //                       self.present(habitsViewController, animated: true, completion: nil)
-                //                   })
-
+                self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
             }
 
             alert.addAction(deleteAlert)

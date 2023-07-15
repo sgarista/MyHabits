@@ -22,9 +22,10 @@ class InfoViewController: UIViewController {
     private var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        titleLabel.font = UIFont(name: "SFProText-Regular", size: 17)
-        titleLabel.font = .boldSystemFont(ofSize: 17)
+        titleLabel.font = Fonts.title3.type
+        titleLabel.numberOfLines = 2
+        titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.textAlignment = .left
 
         return titleLabel
     }()
@@ -33,6 +34,7 @@ class InfoViewController: UIViewController {
         let bodyLabel = UILabel()
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
         bodyLabel.numberOfLines = 0
+        bodyLabel.font = Fonts.body.type
 
         return bodyLabel
     }()
@@ -48,8 +50,8 @@ class InfoViewController: UIViewController {
         setupConstraints()
 
 
-        titleLabel.text = "Сколько зарабатывают гонщики «Ф-1»?"
-        bodyLabel.text = "А после введения потолка расходов на болиды команды получили возможность сманивать и удерживать звезд большими зарплатами – ведь гонорары гонщиков исключаются из-под ограничений! Сколько же зарабатывают эти ребята? Один из самых авторитетных и старых журналистов паддока «Формулы-1» (а ныне и советник президента Международной автомобильной федерации) Дитер Ренкен общается с инсайдерами, менеджерами гонщиков и управляющим штатом команд о суммах в их контрактах каждый год и публикует инсайды – вот его распределение 220 миллионов в год на всех: А после введения потолка расходов на болиды команды получили возможность сманивать и удерживать звезд большими зарплатами – ведь гонорары гонщиков исключаются из-под ограничений! Сколько же зарабатывают эти ребята? Один из самых авторитетных и старых журналистов паддока «Формулы-1» (а ныне и советник президента Международной автомобильной федерации) Дитер Ренкен общается с инсайдерами, менеджерами гонщиков и управляющим штатом команд о суммах в их контрактах каждый год и публикует инсайды – вот его распределение 220 миллионов в год на всех: А после введения потолка расходов на болиды команды получили возможность сманивать и удерживать звезд большими зарплатами – ведь гонорары гонщиков исключаются из-под ограничений! Сколько же зарабатывают эти ребята? Один из самых авторитетных и старых журналистов паддока «Формулы-1» (а ныне и советник президента Международной автомобильной федерации) Дитер Ренкен общается с инсайдерами, менеджерами гонщиков и управляющим штатом команд о суммах в их контрактах каждый год и публикует инсайды – вот его распределение 220 миллионов в год на всех: А после введения потолка расходов на болиды команды получили возможность сманивать и удерживать звезд большими зарплатами – ведь гонорары гонщиков исключаются из-под ограничений! Сколько же зарабатывают эти ребята? Один из самых авторитетных и старых журналистов паддока «Формулы-1» (а ныне и советник президента Международной автомобильной федерации) Дитер Ренкен общается с инсайдерами, менеджерами гонщиков и управляющим штатом команд о суммах в их контрактах каждый год и публикует инсайды – вот его распределение 220 миллионов в год на всех:"
+        titleLabel.text = "Привычка за 21 день"
+        bodyLabel.text = "Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:\n\n1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная в перспективу, находится на расстоянии шага.\n\n2. Выдержать 2 дня в прежнем состоянии самоконтроля.\n\n3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче, с чем еще предстоит серьезно бороться.\n\n4. Поздравить себя с прохождением первого серьезного порога в 21 день. За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств.\n\n5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой.\n\n6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся."
     }
 
 
@@ -80,11 +82,11 @@ class InfoViewController: UIViewController {
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 22),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 32),
+            bodyLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
             bodyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
             bodyLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             bodyLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)

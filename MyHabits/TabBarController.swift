@@ -4,7 +4,6 @@ class TabBarController: UITabBarController {
 
     var habitsTabNavigationController: UINavigationController!
     var infoTabNavigationController: UINavigationController!
-//    var habitTabNavigationController: UINavigationController!
 
 
     override func viewDidLoad() {
@@ -22,7 +21,10 @@ class TabBarController: UITabBarController {
         self.viewControllers = [habitsTabNavigationController, infoTabNavigationController]
 
         habitsTabNavigationController.tabBarItem = UITabBarItem(title: "Привычки", image: UIImage(systemName:"checklist"), tag: 0)
+
         infoTabNavigationController.tabBarItem = UITabBarItem(title: "Информация", image: UIImage(systemName:"info.circle.fill"), tag: 1)
+
+        self.tabBar.tintColor = Colors.violet.color
 
 
     }

@@ -153,8 +153,13 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         let habit = HabitsStore.shared.habits[selectedIndexPath.row]
 
         let habitDetailsViewController = HabitDetailsViewController()
-//        habitDetailsViewController.title = habit.name // Установите значение заголовка
+   
+//        habitDetailsViewController.updateTitle(with: habit.name)
+
+//        let tableViewTitle = habit.name
+//        habitDetailsViewController.title = tableViewTitle // Установите значение заголовка
         habitDetailsViewController.habit = habit
+        habitDetailsViewController.title = habit.name
 //        habitDetailsViewController.tempTitle = habit.name
 
         let habitDetailsNC = UINavigationController(rootViewController: habitDetailsViewController)

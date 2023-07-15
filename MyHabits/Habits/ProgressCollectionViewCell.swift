@@ -10,7 +10,9 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     var supportLabel: UILabel = {
         let supportLabel = UILabel()
         supportLabel.translatesAutoresizingMaskIntoConstraints = false
-//        supportLabel.text = "Все получится!"
+        supportLabel.textColor = Colors.systemgray.color
+        supportLabel.font = Fonts.footnoteStatusSemibold13.type
+        //        supportLabel.text = "Все получится!"
 
 
         return supportLabel
@@ -19,7 +21,9 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     var progressLabel: UILabel = {
         let progressLabel = UILabel()
         progressLabel.translatesAutoresizingMaskIntoConstraints = false
-//        progressLabel.text = "50%"
+progressLabel.textColor = Colors.systemgray.color
+progressLabel.font = Fonts.footnoteStatusSemibold13.type
+        //        progressLabel.text = "50%"
 
 
         return progressLabel
@@ -31,7 +35,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = Colors.violet.color
         progressView.trackTintColor = Colors.systemgray2.color
-//        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        //        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
 
 
         return progressView
@@ -70,7 +74,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 
             supportLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 8),
             supportLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
-//            supportLabel.trailingAnchor.constraint(equalTo: progressLabel.leadingAnchor, constant: -8),
+            //            supportLabel.trailingAnchor.constraint(equalTo: progressLabel.leadingAnchor, constant: -8),
 
             // Progress Label constraints
             progressLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -91,8 +95,8 @@ class ProgressCollectionViewCell: UICollectionViewCell {
 
         supportLabel.text = "Все получится!"
         progressLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"
-//        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
-        UIView.animate(withDuration: 2, delay: 0.5, options: .curveEaseInOut, animations: {
+        //        progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        UIView.animate(withDuration: 1, delay: 0.5, options: .curveEaseInOut, animations: {
             self.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
         }, completion: nil)
 
