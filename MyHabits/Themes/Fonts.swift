@@ -9,11 +9,11 @@ enum Fonts {
     case footnoteStatusSemibold13
     case footnoteRegular13
     case caption
-
-
+    
+    
     var type: UIFont {
         switch self {
-
+            
         case .title3:
             return UIFont.systemFont(ofSize: 20, weight: .semibold)
         case .headline:

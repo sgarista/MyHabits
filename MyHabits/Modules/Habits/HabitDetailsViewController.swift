@@ -1,21 +1,18 @@
-
 import UIKit
+
 
 class HabitDetailsViewController: UIViewController {
 
 
     var habit: Habit?
 
-//    var updateTitleClosure: ((String) -> Void)?
-//    var tempTitle: String!
-
     var tableView: UITableView = {
         let tableView = UITableView.init(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
-
         return tableView
     }()
+
 
     private var backButton: UIButton = {
         let backButton = UIButton()
@@ -24,8 +21,6 @@ class HabitDetailsViewController: UIViewController {
         backButton.setTitleColor(.black, for: .normal)
         backButton.titleLabel?.font = Fonts.body.type
         backButton.setTitleColor(Colors.violet.color, for: .normal)
-
-        //        cancelButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 
         return backButton
     }()
@@ -42,6 +37,7 @@ class HabitDetailsViewController: UIViewController {
         return editButton
     }()
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,10 +49,8 @@ class HabitDetailsViewController: UIViewController {
         setupBackButton()
         setupEditButton()
 
-//        if let tempHabit = habit {
-//            title = tempHabit.name
-//        }
     }
+
 
     func setupView() {
 
@@ -64,8 +58,9 @@ class HabitDetailsViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(editButton)
         view.backgroundColor = .white
-//        title = ""
+
     }
+
 
     func setupConstraints() {
 
@@ -79,18 +74,21 @@ class HabitDetailsViewController: UIViewController {
         ])
     }
 
+
     func setupTableView() {
 
         tableView.dataSource = self
         tableView.delegate = self
 
-        //        tableView.sectionFooterHeight = 1
     }
+
+
     func setupBackButton() {
         let backButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = backButtonItem
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
+
 
     func setupEditButton() {
         let editButtonItem = UIBarButtonItem(customView: editButton)
@@ -99,15 +97,12 @@ class HabitDetailsViewController: UIViewController {
     }
 
 
-
-
     @objc func backButtonTapped() {
 
         dismiss(animated: true, completion: nil)
 
-        print("back button tapped")
-
     }
+
 
     @objc func editButtonTapped() {
         let habitVC = HabitViewController()
@@ -117,7 +112,6 @@ class HabitDetailsViewController: UIViewController {
         habitNC.modalPresentationStyle = .fullScreen
         present(habitNC, animated: true)
 
-        print("Button tapped")
         if let tempHabit = habit {
             habitVC.isEdit = true
             habitVC.habitsNameTextField.text = tempHabit.name
@@ -131,16 +125,11 @@ class HabitDetailsViewController: UIViewController {
             habitVC.timeLabelSecond.text = formattedTime
 
         }
-
     }
-
-
 }
 
 
 extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate {
-
-
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -157,7 +146,6 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
         cell.configure(with: (date))
         
         if let tempHabit = habit {
-//            title = tempHabit.name
             if HabitsStore.shared.habit(tempHabit, isTrackedIn: date) {
                 cell.doneImageView.image = UIImage(named: "doneSymbol")
             }
@@ -166,13 +154,11 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
     }
 
 
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = Colors.lightgray.color
-
         let label = UILabel(frame: CGRect(x: 16, y: 22, width: tableView.frame.width - 32, height: 20))
-        label.textColor = UIColor(named: "#3C3C43")
+        label.textColor = Colors.tableSectionHeader.color
         label.font = Fonts.body.type
         label.text = "АКТИВНОСТЬ"
 
@@ -180,7 +166,8 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
 
         return headerView
     }
-    
+
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         return 44
@@ -191,5 +178,4 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
         
         return 50
     }
-
 }

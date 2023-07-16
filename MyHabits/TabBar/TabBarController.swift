@@ -1,8 +1,11 @@
 import UIKit
 
+
 class TabBarController: UITabBarController {
 
+
     var habitsTabNavigationController: UINavigationController!
+    
     var infoTabNavigationController: UINavigationController!
 
 
@@ -25,7 +28,5 @@ class TabBarController: UITabBarController {
         infoTabNavigationController.tabBarItem = UITabBarItem(title: "Информация", image: UIImage(systemName:"info.circle.fill"), tag: 1)
 
         self.tabBar.tintColor = Colors.violet.color
-
-
     }
 }

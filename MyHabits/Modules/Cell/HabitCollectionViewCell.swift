@@ -2,9 +2,12 @@ import UIKit
 
 
 class HabitCollectionViewCell: UICollectionViewCell {
+
     
     static let id = "HabitCollectionViewCell"
-    
+
+    var tempHabit: Habit?
+
     
     var habitLabel: UILabel = {
         let habitLabel = UILabel()
@@ -14,8 +17,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
         habitLabel.textAlignment = .left
         habitLabel.font = Fonts.headline.type
 
-
-        
         return habitLabel
     }()
     
@@ -28,13 +29,13 @@ class HabitCollectionViewCell: UICollectionViewCell {
         
         return timeLabel
     }()
-    
+
+
     var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 8
-
 
         return stackView
     }()
@@ -49,12 +50,10 @@ class HabitCollectionViewCell: UICollectionViewCell {
         return counterLabel
     }()
     
-    
-    
+
     lazy var doneView: UIView = {
         let doneView = UIView()
         doneView.translatesAutoresizingMaskIntoConstraints = false
-        //        doneView.frame = CGRect(x: 0, y: 0, width: 76, height: 76)
         doneView.layer.cornerRadius = 19
         doneView.layer.borderWidth = 2
         doneView.layer.masksToBounds = true
@@ -63,25 +62,27 @@ class HabitCollectionViewCell: UICollectionViewCell {
         return doneView
     }()
 
+
     lazy var checkmarkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "checkmark") // Замените "imageName" на название вашего изображения
-        imageView.contentMode = .scaleAspectFit // Установите необходимый режим отображения изображения
+        imageView.image = UIImage(systemName: "checkmark")
+        imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .white
         imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
 
         return imageView
     }()
-    
+
+
     override init(frame: CGRect) {
         super .init(frame: .zero)
         
         setupView()
         setupConstraints()
 
-
     }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -101,10 +102,11 @@ class HabitCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
         
     }
+
+
     func setupConstraints() {
         
         let safeAreaLayoutGuide = contentView.safeAreaLayoutGuide
-        
         
         NSLayoutConstraint.activate([
 
@@ -112,13 +114,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
             stackView.widthAnchor.constraint(equalToConstant: 220),
 
-//            habitLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
-//            habitLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-//            habitLabel.bottomAnchor.constraint(equalTo: timeLabel.topAnchor, constant: -16),
-//            habitLabel.widthAnchor.constraint(equalToConstant: 220),
-//
-//            timeLabel.leadingAnchor.constraint(equalTo: habitLabel.leadingAnchor),
-//
             counterLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
             counterLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20),
             counterLabel.heightAnchor.constraint(equalToConstant: 18),
@@ -133,11 +128,8 @@ class HabitCollectionViewCell: UICollectionViewCell {
             checkmarkImageView.centerYAnchor.constraint(equalTo: doneView.centerYAnchor)
             
         ])
-        
     }
     
-    var tempHabit: Habit?
-
 
     func setup(with habit: Habit) {
         
@@ -146,7 +138,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
         timeLabel.text = habit.dateString
         counterLabel.text = "Счётчик: \(habit.trackDates.count)"
         doneView.layer.borderColor = habit.color.cgColor
-
 
 
         if habit.isAlreadyTakenToday {
@@ -159,28 +150,20 @@ class HabitCollectionViewCell: UICollectionViewCell {
             doneView.addGestureRecognizer(tapGesture)
             doneView.backgroundColor = .white
 
-
-            
-            
-            
         }
-        
-        //        photoImageView.image = UIImage(named: photo.photo)
     }
+
     
     @objc func handleTap() {
         guard let habit = self.tempHabit else {
             return
         }
-        //        if habit.isAlreadyTakenToday == false {
         HabitsStore.shared.track(habit)
         doneView.backgroundColor = .yellow
         doneView.isUserInteractionEnabled = false
         HabitsViewController.collectionView.reloadData()
 
-        //        }
     }
-    
 }
 
 

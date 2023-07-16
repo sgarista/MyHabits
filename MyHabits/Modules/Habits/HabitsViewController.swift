@@ -3,7 +3,8 @@ import UIKit
 
 class HabitsViewController: UIViewController {
 
-  static var tempHabit: Habit?
+
+    static var tempHabit: Habit?
 
     static var collectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -19,7 +20,7 @@ class HabitsViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("+", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(Colors.violet.color, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 40)
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 
@@ -44,11 +45,9 @@ class HabitsViewController: UIViewController {
 
         navigationItem.title = "Сегодня"
         navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.largeTitleDisplayMode = .always
-//        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
-
 
     }
+
 
     func setupCV() {
 
@@ -57,11 +56,10 @@ class HabitsViewController: UIViewController {
 
         HabitsViewController.collectionView.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: ProgressCollectionViewCell.id)
 
-
         HabitsViewController.collectionView.register(HabitCollectionViewCell.self, forCellWithReuseIdentifier: HabitCollectionViewCell.id)
 
-
     }
+
 
     func setupConstraints() {
 
@@ -74,15 +72,15 @@ class HabitsViewController: UIViewController {
             HabitsViewController.collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
 
         ])
-
-
     }
+
 
     func setupAddButton() {
         let addButtonItem = UIBarButtonItem(customView: addButton)
         navigationItem.rightBarButtonItem = addButtonItem
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
     }
+
 
     @objc func addButtonTapped() {
 
@@ -92,11 +90,9 @@ class HabitsViewController: UIViewController {
         habitNC.modalPresentationStyle = .fullScreen
         present(habitNC, animated: true)
 
-        print("Button tapped")
-        
     }
-
 }
+
 
 extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -105,6 +101,7 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
 
         2
     }
+
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
@@ -115,34 +112,31 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
 
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         switch indexPath.section {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as! ProgressCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as? ProgressCollectionViewCell else { return UICollectionViewCell() }
 
             cell.setup()
             return cell
+
         case 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitCollectionViewCell.id, for: indexPath) as! HabitCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitCollectionViewCell.id, for: indexPath) as? HabitCollectionViewCell else { return UICollectionViewCell() }
+
             let habit = HabitsStore.shared.habits[indexPath.row]
             cell.setup(with: habit)
             HabitsViewController.tempHabit = habit
-//            HabitsViewController.tempHabit = habit
-
-//            let tableViewController = HabitDetailsViewController()
-//            tableViewController.title = habit.name // Установите значение заголовка
-
-
             cell.isUserInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTap(_:)))
             cell.addGestureRecognizer(tapGesture)
 
-
-//            HabitsViewController.tempHabit = habit
             return cell
+
         default:
             return UICollectionViewCell()
+
         }
     }
 
@@ -153,43 +147,15 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         let habit = HabitsStore.shared.habits[selectedIndexPath.row]
 
         let habitDetailsViewController = HabitDetailsViewController()
-   
-//        habitDetailsViewController.updateTitle(with: habit.name)
 
-//        let tableViewTitle = habit.name
-//        habitDetailsViewController.title = tableViewTitle // Установите значение заголовка
         habitDetailsViewController.habit = habit
         habitDetailsViewController.title = habit.name
-//        habitDetailsViewController.tempTitle = habit.name
 
         let habitDetailsNC = UINavigationController(rootViewController: habitDetailsViewController)
         habitDetailsNC.modalPresentationStyle = .fullScreen
         present(habitDetailsNC, animated: true)
 
-        print("cell tapped")
     }
-
-
-
-//    @objc func cellTap() {
-//
-//        let habitDetailNC = UINavigationController(rootViewController: HabitDetailsViewController())
-////        habitDetailNC.title = HabitsViewController.tempHabit?.name
-//        habitDetailNC.modalPresentationStyle = .fullScreen
-//        present(habitDetailNC, animated: true)
-//
-//        print("date cell tapped")
-//    }
-
-
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let selectedTitle = HabitsStore.shared.habits[indexPath.row].name // Заголовок выбранной ячейки UICollectionView
-//
-//        let tableViewController = HabitDetailsViewController()
-//        tableViewController.title = selectedTitle // Установите значение заголовка
-//        navigationController?.pushViewController(tableViewController, animated: true)
-//    }
-
 
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -207,14 +173,14 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
 
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 22
     }
+
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
         return UIEdgeInsets(top: 0, left: 8, bottom: 22, right: 8)
     }
-
-
 }
