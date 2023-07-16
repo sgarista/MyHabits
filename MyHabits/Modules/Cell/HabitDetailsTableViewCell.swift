@@ -1,5 +1,5 @@
 import UIKit
-
+// настройка ячейки в HabitDetailsViewController. 
 
 class HabitDetailsTableViewCell: UITableViewCell {
 

@@ -1,5 +1,5 @@
 import UIKit
-
+// стартовый экран вмещающий ProgressCollectionViewCell и HabitCollectionViewCell (Привычки)
 
 class HabitsViewController: UIViewController {
 
@@ -31,10 +31,10 @@ class HabitsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupAddButton()
         setupView()
+        setupCollectionView()
         setupConstraints()
-        setupCV()
+        setupAddButton()
 
     }
 
@@ -49,7 +49,7 @@ class HabitsViewController: UIViewController {
     }
 
 
-    func setupCV() {
+    func setupCollectionView() {
 
         HabitsViewController.collectionView.dataSource = self
         HabitsViewController.collectionView.delegate = self
@@ -119,14 +119,14 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProgressCollectionViewCell.id, for: indexPath) as? ProgressCollectionViewCell else { return UICollectionViewCell() }
 
-            cell.setup()
+            cell.configure()
             return cell
 
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HabitCollectionViewCell.id, for: indexPath) as? HabitCollectionViewCell else { return UICollectionViewCell() }
 
             let habit = HabitsStore.shared.habits[indexPath.row]
-            cell.setup(with: habit)
+            cell.configure(with: habit)
             HabitsViewController.tempHabit = habit
             cell.isUserInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTap(_:)))

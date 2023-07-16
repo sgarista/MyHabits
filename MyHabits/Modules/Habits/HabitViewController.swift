@@ -1,5 +1,8 @@
 import UIKit
-
+/*
+ экран создания или редактирования привычки. При редактировании появляется кнопка для удаления привычки.
+ В макете установлен формат пикера с AM/PM, поскольку потом время все-равно переводится в 24-часовой формат, я выставил Locale(identifier: "ru_RU") для отображения пикера сразу в формате 24 часа.
+ */
 
 class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate {
 
@@ -17,13 +20,13 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }()
 
 
-    var nameLabel: UILabel = {
-        let nameLabel = UILabel()
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.text = "НАЗВАНИЕ"
-        nameLabel.font = Fonts.headline.type
+    var habitNameLabel: UILabel = {
+        let habitNameLabel = UILabel()
+        habitNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        habitNameLabel.text = "НАЗВАНИЕ"
+        habitNameLabel.font = Fonts.headline.type
 
-        return nameLabel
+        return habitNameLabel
     }()
 
 
@@ -148,10 +151,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupUI()
-        setupConstraints()
         setupCancelButton()
         setupSaveButton()
+        setupView()
+        setupConstraints()
         setupDeleteButton()
 
     }
@@ -171,10 +174,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
     }
 
 
-    func setupUI() {
+    func setupView() {
 
         view.addSubview(contentView)
-        contentView.addSubview(nameLabel)
+        contentView.addSubview(habitNameLabel)
         contentView.addSubview(habitsNameTextField)
         contentView.addSubview(colorLabel)
         contentView.addSubview(colorButton)
@@ -182,8 +185,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
         contentView.addSubview(timeLabelFirst)
         contentView.addSubview(timeLabelSecond)
         contentView.addSubview(timePicker)
-
-
         view.addSubview(cancelButton)
         view.addSubview(saveButton)
 
@@ -202,10 +203,10 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             contentView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
 
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            habitNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            habitNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 
-            habitsNameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
+            habitsNameTextField.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: 16),
             habitsNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             habitsNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
@@ -304,9 +305,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
             dismiss(animated: true, completion: nil)
             HabitsViewController.collectionView.reloadData()
 
-            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 0))
-            HabitsViewController.collectionView.reloadSections(IndexSet(integer: 1))
-
         }
     }
 
@@ -349,7 +347,6 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
                     self.presentingViewController?.present(habitsViewController, animated: true, completion: nil)
                 }
             }
-
 
             alert.addAction(deleteAlert)
 

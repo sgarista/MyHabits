@@ -1,5 +1,5 @@
 import UIKit
-
+// прогресс отображает процент выполненных за текущий день привычек.
 
 class ProgressCollectionViewCell: UICollectionViewCell {
 
@@ -83,7 +83,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     }
 
 
-    func setup() {
+    func configure() {
 
         supportLabel.text = "Все получится!"
         progressLabel.text = "\(Int(HabitsStore.shared.todayProgress * 100))%"

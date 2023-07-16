@@ -1,5 +1,5 @@
 import UIKit
-
+// экран отображается при нажатии на ячейку привычки. Показывает дни с момента установки приложения и была-ли выполнена привычка в определенный день.
 
 class HabitDetailsViewController: UIViewController {
 
@@ -57,6 +57,7 @@ class HabitDetailsViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(backButton)
         view.addSubview(editButton)
+
         view.backgroundColor = .white
 
     }

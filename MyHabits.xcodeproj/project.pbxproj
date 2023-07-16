@@ -116,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				3AA659EB2A54177A00277D0F /* HabitsViewController.swift */,
-				3AA552962A54972C00C3CA52 /* HabitViewController.swift */,
 				3A72E1042A5BF91E009DD00E /* HabitDetailsViewController.swift */,
+				3AA552962A54972C00C3CA52 /* HabitViewController.swift */,
 			);
 			path = Habits;
 			sourceTree = "<group>";

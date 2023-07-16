@@ -1,5 +1,6 @@
 import UIKit
-
+// настройка ячейки для отображения в HabitsViewController. Если привычка уже была выполнена в текущий день то
+// у doneView выставлется isUserInteractionEnabled = false
 
 class HabitCollectionViewCell: UICollectionViewCell {
 
@@ -131,7 +132,7 @@ class HabitCollectionViewCell: UICollectionViewCell {
     }
     
 
-    func setup(with habit: Habit) {
+    func configure(with habit: Habit) {
         
         habitLabel.text = habit.name
         habitLabel.textColor = habit.color
@@ -159,7 +160,6 @@ class HabitCollectionViewCell: UICollectionViewCell {
             return
         }
         HabitsStore.shared.track(habit)
-        doneView.backgroundColor = .yellow
         doneView.isUserInteractionEnabled = false
         HabitsViewController.collectionView.reloadData()
 
