@@ -149,8 +149,6 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         let habitDetailsViewController = HabitDetailsViewController()
 
         habitDetailsViewController.habit = habit
-        habitDetailsViewController.title = habit.name
-
         let habitDetailsNC = UINavigationController(rootViewController: habitDetailsViewController)
         habitDetailsNC.modalPresentationStyle = .fullScreen
         present(habitDetailsNC, animated: true)
