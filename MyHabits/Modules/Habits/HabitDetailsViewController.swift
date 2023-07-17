@@ -38,6 +38,15 @@ class HabitDetailsViewController: UIViewController {
     }()
 
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tempHabit = habit {
+            title = tempHabit.name
+        }
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

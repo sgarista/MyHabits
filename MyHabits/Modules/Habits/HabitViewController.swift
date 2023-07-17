@@ -341,15 +341,13 @@ class HabitViewController: UIViewController, UIColorPickerViewControllerDelegate
 
             let deleteAlert = UIAlertAction(title: "Удалить", style: .destructive) { _ in
                 self.deleteHabit(with: habit)
-                self.dismiss(animated: true) {
-                    let habitsViewController = HabitsViewController()
-                    habitsViewController.modalPresentationStyle = .fullScreen
-                    self.presentingViewController?.present(habitsViewController, animated: true, completion: nil)
+                if let rootViewController = self.presentingViewController?.presentingViewController {
+                    rootViewController.dismiss(animated: true, completion: nil)
                 }
             }
-
+            
             alert.addAction(deleteAlert)
-
+            
             let cancelAlert = UIAlertAction(title: "Отмена", style: .cancel) { _ in
 
             }
